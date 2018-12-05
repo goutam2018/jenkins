@@ -1,0 +1,4 @@
+https://www.cloudbees.com/blog/joining-big-leagues-tuning-jenkins-gc-responsiveness-and-stability
+https://jenkins.io/blog/2016/11/21/gc-tuning/
+https://www.oracle.com/technetwork/articles/java/vmoptions-jsp-140102.html
+https://engineering.taboola.com/5-simple-tips-boosting-jenkins-performance/
