@@ -1,0 +1,44 @@
+
+#Get the current configuration and save it locally
+curl -X GET http://user:password@hudson.server.org/job/myjobname/config.xml -o mylocalconfig.xml
+ 
+#Update the configuration via posting a local configuration file
+curl -X POST http://user:password@hudson.server.org/job/myjobname/config.xml --data-binary "@mymodifiedlocalconfig.xml"
+ 
+#Creating a new job via posting a local configuration file
+curl -X POST "http://user:password@hudson.server.org/createItem?name=newjobname" --data-binary "@newconfig.xml" -H "Content-Type: text/xml"
+
+Note: Use --data-binary to post the data, else the line-endings won’t be transfered correctly
+
+CodeSign /Users/bytedance/Documents/Jenkins/workspace/Essay_iOS_InHouse/Essay/build/Release-iphoneos/SSCommon.framework
+    cd /Users/bytedance/Documents/Jenkins/workspace/ios_common
+    export CODESIGN_ALLOCATE=/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/codesign_allocate
+    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/bytedance/Documents/Env/checker-276"
+    
+Signing Identity:     "iPhone Developer: ShanShan Xing (CGMN26F969)"
+
+    /usr/bin/codesign --force --sign CA3FB01F424F12C8D8463A887E400BE57E6C0DEA /Users/bytedance/Documents/Jenkins/workspace/Essay_iOS_InHouse/Essay/build/Release-iphoneos/SSCommon.framework
+/Users/bytedance/Documents/Jenkins/workspace/Essay_iOS_InHouse/Essay/build/Release-iphoneos/SSCommon.framework: User interaction is not allowed.
+Command /usr/bin/codesign failed with exit code 1
+
+
+Using Jenkins I got this error:
+
+/Users/Shared/Jenkins/Home/jobs/ExampleTabbed-Integration/workspace/build/Debug-iphoneos/ExamplesTabbed.app: User interaction is not allowed.
+Command /usr/bin/codesign failed with exit code 1
+
+I fixed it by doing the following:
+
+Add Build Step before the XCode (jenkins plugin) step
+Add the following as the execute command:
+
+security unlock-keychain -p "passwordhere" ${HOME}/Library/Keychains/login.keychain
+
+In the XCode (via plugin) configuration I'm using the following:
+
+Unlock Keychaing ? (unchecked)
+Keychain path: ${HOME}/Library/Keychains/login.keychain
+Keychain password: (empty)
+It might be possible to remove the pre-step and use the actual xcode config to do it, but it's working as described with no problems.
+
+Note this doesn't take into account using a more secure solution yet, but this was my solution to the xcode signing issue. I'm running on OSX with the Jenkins installer and running as a launchctl command, used by the default Jenkins installer application. If that helps.
