@@ -1,2 +1,8 @@
 http://www.itopstube.com/courses/devops/lessons/jenkins-pipelines-2/
 https://dev.to/pencillr/jenkins-pipelines-and-their-dirty-secrets-2
+
+https://code-maven.com/jenkins-pipeline-running-external-programs
+
+https://stackoverflow.com/questions/36547680/how-to-do-i-get-the-output-of-a-shell-command-executed-using-into-a-variable-fro?rq=1
+
+https://serverfault.com/questions/884764/jenkins-pipeline-file-passing-jenkinsfile-variables-into-further-commands
