@@ -1,1 +1,2 @@
 http://www.itopstube.com/courses/devops/lessons/jenkins-pipelines-2/
+https://dev.to/pencillr/jenkins-pipelines-and-their-dirty-secrets-2
